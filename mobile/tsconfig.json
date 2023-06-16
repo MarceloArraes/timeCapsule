@@ -1,0 +1,7 @@
+{
+  "compilerOptions": {
+    "types": ["nativewind/types"],
+    "strictNullChecks": true
+  },
+  "extends": "expo/tsconfig.base"
+}
