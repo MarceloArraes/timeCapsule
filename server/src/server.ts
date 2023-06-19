@@ -1,20 +1,21 @@
-import { throws } from 'assert'
-import fastify from 'fastify'
-import { PrismaClient } from '@prisma/client'
+import { throws } from "assert";
+import fastify from "fastify";
+import { prisma } from "./lib/prisma";
+import cors from "@fastify/cors";
+import { memoriesRoutes } from "./routes/memories";
 
-const app = fastify()
-const prisma = new PrismaClient()
+const app = fastify();
 
-app.get('/users', async (req, res) => {
-  const users = await prisma.user.findMany()
-  return users
-})
-
-app.listen({ port: 3333 })
+app.register(memoriesRoutes);
+app.register(cors, {
+  origin: true,
+});
+app
+  .listen({ port: 3333 })
   .then(() => {
-    console.log('marcelo2')
+    console.log("online on http://localhost:3333");
   })
-  .catch(err => {
-    console.log('error123')
-    throws(err)
-  })
+  .catch((err) => {
+    console.log("error123");
+    throws(err);
+  });
