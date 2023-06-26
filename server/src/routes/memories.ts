@@ -3,6 +3,9 @@ import { prisma } from "../lib/prisma";
 import { z } from "zod";
 
 export async function memoriesRoutes(app: FastifyInstance) {
+  app.addHook("preHandler", async (request) => {
+    await request.jwtVerify();
+  });
   app.get("/users", async (req, res) => {
     const users = await prisma.user.findMany({
       select: {
@@ -17,11 +20,16 @@ export async function memoriesRoutes(app: FastifyInstance) {
     });
 
     const { id } = paramsSchema.parse(req.params);
-    const memory = prisma.memory.findUniqueOrThrow({
+    const memory = await prisma.memory.findUniqueOrThrow({
       where: {
         id: id,
       },
     });
+
+    if (!memory.isPublic && memory.userId !== req.user.sub) {
+      return res.status(401).send();
+    }
+
     return memory;
   });
   app.put("/memories/:id", async (req, res) => {
@@ -35,7 +43,18 @@ export async function memoriesRoutes(app: FastifyInstance) {
     });
     const { id } = paramsSchema.parse(req.params);
     const { content, isPublic, coverUrl } = bodySchema.parse(req.params);
-    const memory = await prisma.memory.update({
+
+    let memory = await prisma.memory.findUnique({
+      where: {
+        id,
+      },
+    });
+
+    if (!memory?.isPublic && memory?.userId !== req.user.sub) {
+      return res.status(401).send();
+    }
+
+    memory = await prisma.memory.update({
       where: {
         id,
       },
@@ -50,6 +69,17 @@ export async function memoriesRoutes(app: FastifyInstance) {
     });
 
     const { id } = paramsSchema.parse(req.params);
+
+    let memory = await prisma.memory.findUnique({
+      where: {
+        id,
+      },
+    });
+
+    if (!memory?.isPublic && memory?.userId !== req.user.sub) {
+      return res.status(401).send();
+    }
+
     await prisma.memory.delete({
       where: {
         id,
@@ -84,7 +114,7 @@ export async function memoriesRoutes(app: FastifyInstance) {
         content,
         isPublic,
         coverUrl,
-        userId: "3a518346-791d-4b2e-b05a-5aeb2f5fc0d7",
+        userId: req.user.sub,
       },
     });
     return memory;
