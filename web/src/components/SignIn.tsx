@@ -8,7 +8,7 @@ export function SignIn() {
       className="flex items-center gap-3 text-left transition-colors hover:text-gray-500"
     >
       <div className="h-18 w-18 flex items-center justify-center rounded-full bg-gray-400">
-        <User className="h-5 w-5 text-gray-500" />
+        <User width={40} height={40} className="h-10 w-10 text-gray-500" />
       </div>
       <p className=" max-w-[140px] text-sm leading-snug">
         <span className="underline">Create your account</span> and save your

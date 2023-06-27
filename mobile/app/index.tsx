@@ -1,6 +1,7 @@
-/* import { useEffect } from "react";
+import { useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
 import * as SecureStore from "expo-secure-store";
+import { useRouter } from "expo-router";
 import {
   ImageBackground,
   Text,
@@ -15,15 +16,15 @@ import {
 } from "@expo-google-fonts/roboto";
 import { BaiJamjuree_700Bold } from "@expo-google-fonts/bai-jamjuree";
 // import Synth1 from "./src/assets/synth1.jpeg";
-import Synth2 from "./src/assets/synth2.jpeg";
+import Synth2 from "../src/assets/synth2.jpeg";
 // import Synth3 from "./src/assets/synth3.jpeg";
 // import Synth4 from "./src/assets/synth4.jpeg";
 // import Synth5 from "./src/assets/synth5.jpeg";
-import Stripes from "./src/assets/stripe.svg";
+import Stripes from "../src/assets/stripe.svg";
 import { styled } from "nativewind";
-import BgSun from "./src/assets/bg-sun.png";
+import BgSun from "../src/assets/bg-sun.png";
 import { makeRedirectUri, useAuthRequest } from "expo-auth-session";
-import { api } from "./src/lib/api";
+import { api } from "../src/lib/api";
 
 const StyledStripes = styled(Stripes);
 
@@ -34,11 +35,8 @@ const discovery = {
     "https://github.com/settings/connections/applications/cb22a35fd7fb5a0e1291",
 };
 
-async function save(key, value) {
-  await SecureStore.setItemAsync(key, value);
-}
-
 export default function App() {
+  const router = useRouter();
   const [request, response, promptAsync] = useAuthRequest(
     {
       clientId: "cb22a35fd7fb5a0e1291",
@@ -49,6 +47,14 @@ export default function App() {
     },
     discovery
   );
+  const UserRegistration = async (code: string) => {
+    const response = await api.post("/register", { code });
+
+    const { token } = response.data;
+
+    await SecureStore.setItemAsync("token", token);
+    router.push("/memories");
+  };
 
   useEffect(() => {
     console.log("response123", response);
@@ -62,18 +68,7 @@ export default function App() {
     if (response?.type === "success") {
       const { code } = response.params;
       console.log("code654 ", code);
-      api
-        .post("/register", {
-          code,
-        })
-        .then((response) => {
-          const { token } = response.data;
-          console.log("token54 ", token);
-          SecureStore.setItemAsync("token", token);
-        })
-        .catch((err) => {
-          console.log("error125", err);
-        });
+      UserRegistration(code);
     }
   }, [response]);
 
@@ -132,4 +127,3 @@ export default function App() {
     </ImageBackground>
   );
 }
- */

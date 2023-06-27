@@ -1,5 +1,4 @@
 import { getUser } from "@/lib/auth";
-import { User } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 
@@ -7,7 +6,7 @@ export function Profile() {
   const { name, avatarUrl } = getUser();
 
   return (
-    <a className="flex items-center gap-3 text-left">
+    <div className="flex items-center gap-3 text-left">
       <Image
         src={avatarUrl}
         width={40}
@@ -20,12 +19,12 @@ export function Profile() {
           <span className="underline">{name}</span>
         </p>
         <a
-          href=""
+          href="/api/auth/logout"
           className="text-sm text-red-400 transition-colors duration-500 hover:text-red-300"
         >
           Log Out
         </a>
       </div>
-    </a>
+    </div>
   );
 }
