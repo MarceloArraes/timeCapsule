@@ -3,7 +3,6 @@ import React, { ReactNode } from "react";
 import { Roboto_Flex, Bai_Jamjuree } from "next/font/google";
 import { Footer } from "@/components/Footer";
 import { HeroSection } from "@/components/HeroSection";
-import MemoryDisplay from "@/components/MemoryDisplay";
 import { Profile } from "@/components/Profile";
 import { PurpleBlue } from "@/components/PurpleBlue";
 import { SignIn } from "@/components/SignIn";

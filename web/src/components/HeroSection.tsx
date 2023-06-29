@@ -1,6 +1,7 @@
 import Image from "next/image";
 import React from "react";
 import sunSynthware from "../assets/clipart2580163.png";
+import Link from "next/link";
 
 export function HeroSection() {
   return (
@@ -14,12 +15,12 @@ export function HeroSection() {
           Track your best moments and share them!
         </p>
       </div>
-      <a
+      <Link
         className="inline-block rounded-full bg-green-500 px-5 py-3 font-alt text-sm font-bold uppercase leading-none text-black hover:bg-green-600"
-        href="http://"
+        href="/memories/new"
       >
         RECORD MEMORY
-      </a>
+      </Link>
     </div>
   );
 }
