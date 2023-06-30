@@ -51,9 +51,8 @@ export default function App() {
   );
 
   useEffect(() => {
-    console.log("response123", response);
     console.log(
-      "response123",
+      "response1144",
       makeRedirectUri({
         scheme: "spacecapsule",
       })

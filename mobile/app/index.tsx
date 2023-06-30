@@ -1,22 +1,8 @@
 import { useEffect } from "react";
-import { StatusBar } from "expo-status-bar";
 import * as SecureStore from "expo-secure-store";
 import { useRouter } from "expo-router";
-import {
-  ImageBackground,
-  Text,
-  View,
-  Image,
-  TouchableOpacity,
-} from "react-native";
-import {
-  useFonts,
-  Roboto_400Regular,
-  Roboto_700Bold,
-} from "@expo-google-fonts/roboto";
-import { BaiJamjuree_700Bold } from "@expo-google-fonts/bai-jamjuree";
+import { Text, View, Image, TouchableOpacity } from "react-native";
 // import Synth1 from "./src/assets/synth1.jpeg";
-import Synth2 from "../src/assets/synth2.jpeg";
 // import Synth3 from "./src/assets/synth3.jpeg";
 // import Synth4 from "./src/assets/synth4.jpeg";
 // import Synth5 from "./src/assets/synth5.jpeg";
@@ -59,7 +45,7 @@ export default function App() {
   useEffect(() => {
     console.log("response123", response);
     console.log(
-      "response123",
+      "makeRedirectUri123",
       makeRedirectUri({
         scheme: "spacecapsule",
       })
@@ -72,34 +58,9 @@ export default function App() {
     }
   }, [response]);
 
-  const [hasLoaded, err] = useFonts({
-    Roboto_400Regular,
-    Roboto_700Bold,
-    BaiJamjuree_700Bold,
-  });
-
-  if (!hasLoaded) {
-    return null;
-  }
-  if (err != null) {
-    console.log("error123", err);
-  }
   return (
-    <ImageBackground
-      source={Synth2}
-      className="relative flex-1 items-center bg-zinc-800 py-10"
-      imageStyle={{ position: "absolute", opacity: 0.7 }}
-    >
-      <StyledStripes
-        className="absolute right-48 top-96 rotate-90"
-        height={"5%"}
-      />
+    <View className="flex-1 items-center py-10">
       <View className="flex-1 items-center justify-center gap-6">
-        <Image
-          source={BgSun}
-          alt="Sol Invictus"
-          style={{ width: 100, height: 100, position: "absolute", top: "20%" }}
-        />
         <View className="space-y-2">
           <Text className="text-center font-title text-2xl leading-tight text-zinc-50">
             Your time Capsule
@@ -123,7 +84,6 @@ export default function App() {
       <Text className="text-center font-body text-sm leading-relaxed text-gray-200">
         Made by Marcelo, with love.
       </Text>
-      <StatusBar style="light" translucent />
-    </ImageBackground>
+    </View>
   );
 }
