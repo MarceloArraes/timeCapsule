@@ -19,7 +19,6 @@ import { api } from "../src/lib/api";
 
 export default function NewMemory() {
   const { bottom, top } = useSafeAreaInsets();
-  console.log("useSafeAreaInsets ", bottom, top);
   const router = useRouter();
 
   const [preview, setPreview] = useState<string | null>(null);
@@ -43,7 +42,6 @@ export default function NewMemory() {
 
   async function handleCreateMemory() {
     const token = await SecureStore.getItemAsync("token");
-
     let coverUrl = "";
 
     if (preview) {
@@ -55,13 +53,17 @@ export default function NewMemory() {
         type: "image/jpg",
       } as any);
 
-      const uploadResponse = await api.post("/upload", uploadFormData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      const uploadResponse = await api
+        .post("/upload", uploadFormData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .catch((error) => {
+          console.log("error14563 ", error);
+        });
 
-      coverUrl = uploadResponse.data.fileUrl;
+      coverUrl = uploadResponse?.data.fileUrl;
     }
 
     await api.post(
