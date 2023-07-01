@@ -1,8 +1,5 @@
 import { FastifyInstance } from "fastify";
-import { util, z } from "zod";
-import axios from "axios";
 import { extname, resolve } from "node:path";
-import { prisma } from "../lib/prisma";
 import { randomUUID } from "crypto";
 import { createWriteStream } from "node:fs";
 import { pipeline } from "node:stream";

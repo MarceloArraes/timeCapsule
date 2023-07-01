@@ -29,10 +29,9 @@ export function MediaPicker() {
       />
 
       {preview && (
-        // eslint-disable-next-line
         <img
           src={preview}
-          alt=""
+          alt="image"
           className="aspect-video w-full rounded-lg object-cover"
         />
       )}

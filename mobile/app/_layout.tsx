@@ -9,7 +9,6 @@ import {
 import { BaiJamjuree_700Bold } from "@expo-google-fonts/bai-jamjuree";
 // import Synth1 from "./src/assets/synth1.jpeg";
 import { styled } from "nativewind";
-// import { SplashScreen } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 import { useCallback, useEffect, useState } from "react";
