@@ -39,6 +39,8 @@ export async function uploadRoutes(app: FastifyInstance) {
     const fullUrl = req.protocol.concat("://").concat(req.hostname);
     const fileUrl = new URL(`/uploads/${fileName}`, fullUrl).toString();
     console.log("fileurl164 ", fileUrl, fullUrl);
-    res.status(200).send("SUCESS MEN");
+    // here we create memory
+
+    return { fileUrl };
   });
 }

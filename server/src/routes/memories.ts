@@ -42,7 +42,7 @@ export async function memoriesRoutes(app: FastifyInstance) {
       isPublic: z.coerce.boolean().default(false),
     });
     const { id } = paramsSchema.parse(req.params);
-    const { content, isPublic, coverUrl } = bodySchema.parse(req.params);
+    const { content, isPublic, coverUrl } = bodySchema.parse(req.body);
 
     let memory = await prisma.memory.findUnique({
       where: {
@@ -102,6 +102,7 @@ export async function memoriesRoutes(app: FastifyInstance) {
       };
     });
   });
+
   app.post("/memories", async (req, res) => {
     const bodySchema = z.object({
       content: z.string(),
@@ -109,7 +110,7 @@ export async function memoriesRoutes(app: FastifyInstance) {
       isPublic: z.coerce.boolean().default(false),
     });
 
-    const { content, isPublic, coverUrl } = bodySchema.parse(req.params);
+    const { content, isPublic, coverUrl } = bodySchema.parse(req.body);
     const memory = await prisma.memory.create({
       data: {
         content,

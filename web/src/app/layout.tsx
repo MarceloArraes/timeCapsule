@@ -39,7 +39,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             <HeroSection />
             <Footer />
           </div>
-          {children}
+          <div className="flex max-h-screen flex-col overflow-y-scroll">
+            {children}
+          </div>
         </main>
       </body>
     </html>

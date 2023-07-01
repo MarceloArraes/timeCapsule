@@ -34,3 +34,10 @@
 - jwt-decode to decode token from backend (with user infos)
 - 'user client' pages for local client side rendering
 - js-cookie to get cookies on a 'user client' page
+
+## To do next
+
+- Memory edit
+- share memory
+- select memory date (not just using the now)
+- responsiveness
