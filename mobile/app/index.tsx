@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import * as SecureStore from "expo-secure-store";
 import { useRouter } from "expo-router";
 import { Text, View, Image, TouchableOpacity } from "react-native";
@@ -11,6 +11,8 @@ import { styled } from "nativewind";
 import BgSun from "../src/assets/bg-sun.png";
 import { makeRedirectUri, useAuthRequest } from "expo-auth-session";
 import { api } from "../src/lib/api";
+import { Profile } from "../src/components/Profile";
+import Signin from "../src/components/Signin";
 
 const StyledStripes = styled(Stripes);
 
@@ -22,6 +24,7 @@ const discovery = {
 };
 
 export default function App() {
+  const [isLogged, setIsLoggedIn] = useState<Boolean>(false);
   const router = useRouter();
   const [request, response, promptAsync] = useAuthRequest(
     {
@@ -33,13 +36,15 @@ export default function App() {
     },
     discovery
   );
+
   const UserRegistration = async (code: string) => {
     const response = await api.post("/register", { code });
-
+    console.log("responde.data", response.data);
     const { token } = response.data;
 
     await SecureStore.setItemAsync("token", token);
-    router.push("/memories");
+    setIsLoggedIn(true);
+    // router.push("/memories");
   };
 
   useEffect(() => {
@@ -60,6 +65,7 @@ export default function App() {
 
   return (
     <View className="flex-1 items-center py-10">
+      {isLogged ? <Profile /> : <Signin promptAsync={promptAsync} />}
       <View className="flex-1 items-center justify-center gap-6">
         <View className="space-y-2">
           <Text className="text-center font-title text-2xl leading-tight text-zinc-50">
@@ -69,11 +75,31 @@ export default function App() {
             Save the best moments of your life.
           </Text>
         </View>
-        <TouchableOpacity
+        {/*         <TouchableOpacity
           activeOpacity={0.7}
           className="justify-center rounded-full bg-green-500 px-5 py-3"
           onPress={() => {
             promptAsync();
+          }}
+        >
+          <Text className="font-alt text-sm uppercase text-black">Log in</Text>
+        </TouchableOpacity> */}
+        <TouchableOpacity
+          activeOpacity={0.7}
+          className="justify-center rounded-full bg-green-500 px-5 py-3"
+          onPress={() => {
+            router.push("/memories");
+          }}
+        >
+          <Text className="font-alt text-sm uppercase text-black">
+            SEE MEMORIES
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          activeOpacity={0.7}
+          className="justify-center rounded-full bg-green-500 px-5 py-3"
+          onPress={() => {
+            router.push("/new");
           }}
         >
           <Text className="font-alt text-sm uppercase text-black">

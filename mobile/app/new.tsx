@@ -59,6 +59,10 @@ export default function NewMemory() {
             "Content-Type": "multipart/form-data",
           },
         })
+        .then((success) => {
+          console.log("memory created", success);
+          return success;
+        })
         .catch((error) => {
           console.log("error14563 ", error);
         });
@@ -80,7 +84,7 @@ export default function NewMemory() {
       }
     );
 
-    router.push("/memories");
+    router.back();
   }
 
   return (
@@ -89,7 +93,7 @@ export default function NewMemory() {
       contentContainerStyle={{ paddingBottom: bottom, paddingTop: top }}
     >
       <View className="mt-4 flex-row items-center justify-between">
-        <Link href="/memories" asChild>
+        <Link href="/" asChild>
           <TouchableOpacity className="h-10 w-10 items-center justify-center rounded-full bg-purple-500">
             <Icon name="arrow-left" size={16} color="#fff" />
           </TouchableOpacity>

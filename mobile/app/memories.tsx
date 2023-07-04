@@ -8,7 +8,7 @@ import {
   View,
 } from "react-native";
 import Icon from "@expo/vector-icons/Feather";
-import { Link } from "expo-router";
+import { Link, router, useRouter } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import * as SecureStore from "expo-secure-store";
 import { useEffect, useState } from "react";
@@ -29,12 +29,9 @@ export default function memories() {
   const [memories, setMemories] = useState<Memory[]>([]);
   const { bottom, top } = useSafeAreaInsets();
 
-  const signout = () => {
-    SecureStore.deleteItemAsync("token");
-  };
-
   async function loadMemories() {
     const token = await SecureStore.getItemAsync("token");
+    const router = useRouter();
 
     const response = await api.get("/memories", {
       headers: {
@@ -48,6 +45,11 @@ export default function memories() {
     loadMemories();
   }, []);
 
+  const signout = () => {
+    SecureStore.deleteItemAsync("token");
+    router.replace("/");
+  };
+
   return (
     <ScrollView
       className="flex-1 px-8"
@@ -55,11 +57,13 @@ export default function memories() {
     >
       <View className="mt-4 flex-row items-center justify-between">
         <View className="flex-1 flex-row justify-between gap-2">
-          <Link href="/memories" asChild>
-            <TouchableOpacity className="h-10 w-10 items-center justify-center rounded-full bg-purple-500">
-              <Icon name="arrow-left" size={16} color="#fff" />
-            </TouchableOpacity>
-          </Link>
+          <TouchableOpacity
+            onPress={router.back}
+            className="h-10 w-10 items-center justify-center rounded-full bg-purple-500"
+          >
+            <Icon name="arrow-left" size={16} color="#fff" />
+          </TouchableOpacity>
+          {/* </Link> */}
 
           <TouchableOpacity
             onPress={signout}
@@ -72,6 +76,7 @@ export default function memories() {
 
       <View className="mt-6 space-y-10">
         {memories.map((memory, index) => {
+          console.log("image links", memory.coverUrl);
           return (
             <View key={`${memory.id}${index}`} className="space-y-4">
               <View className="flex-row items-center gap-2">

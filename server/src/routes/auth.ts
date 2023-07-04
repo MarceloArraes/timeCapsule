@@ -69,6 +69,7 @@ export async function authRoutes(app: FastifyInstance) {
         expiresIn: "30 days",
       }
     );
+    // return { token, name: userInfo.name, avatarUrl: userInfo.avatar_url };
     return { token };
   });
 }

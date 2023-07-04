@@ -72,12 +72,9 @@ export default function layout() {
           animation: "fade",
         }}
       >
-        <Stack.Screen
-          name="index"
-          redirect={isUserAuthenticated as boolean | undefined}
-        />
-        <Stack.Screen name="memories" />
+        <Stack.Screen name="index" />
         <Stack.Screen name="new" />
+        <Stack.Screen name="memories" />
       </Stack>
       <StatusBar style="light" translucent />
     </ImageBackground>
