@@ -1,4 +1,5 @@
-import "dotenv/config";
+import dotenv from "dotenv";
+dotenv.config();
 import { throws } from "assert";
 import fastify from "fastify";
 import jwt from "@fastify/jwt";
