@@ -1,8 +1,8 @@
+import "dotenv/config";
 import { throws } from "assert";
 import fastify from "fastify";
 import jwt from "@fastify/jwt";
 import fastifyStatic from "@fastify/static";
-import { prisma } from "./lib/prisma";
 import cors from "@fastify/cors";
 import { memoriesRoutes } from "./routes/memories";
 import { authRoutes } from "./routes/auth";
