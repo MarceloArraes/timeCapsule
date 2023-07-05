@@ -9,6 +9,7 @@ import { authRoutes } from "./routes/auth";
 import multipart from "@fastify/multipart";
 import { uploadRoutes } from "./routes/upload";
 import { resolve } from "node:path";
+const PORT = process.env.PORT || 3333;
 
 const app = fastify();
 
