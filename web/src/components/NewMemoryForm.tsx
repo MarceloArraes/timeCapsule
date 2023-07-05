@@ -9,14 +9,15 @@ import { useRouter } from "next/navigation";
 
 export function NewMemoryForm() {
   const router = useRouter();
-
   async function handleCreateMemory(event: FormEvent<HTMLFormElement>) {
+    console.log("xilique");
     event.preventDefault();
 
+    console.log("teste239991 ");
     const formData = new FormData(event.currentTarget);
-
+    console.log("formData ", formData);
     const fileToUpload = formData.get("coverUrl");
-
+    console.log("fileToUpload ", fileToUpload);
     let coverUrl = "";
 
     if (fileToUpload) {
@@ -24,7 +25,10 @@ export function NewMemoryForm() {
       uploadFormData.set("file", fileToUpload);
 
       const uploadResponse = await api.post("/upload", uploadFormData);
-
+      console.log("uploadResponse654 ", uploadResponse);
+      if (!uploadResponse) {
+        console.log("ERROR ", uploadResponse);
+      }
       coverUrl = uploadResponse.data.fileUrl;
     }
 
