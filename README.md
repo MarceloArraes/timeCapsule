@@ -23,6 +23,7 @@
 - asChild on Link to use it as a touchable opacity
 - expo-image-picker to send image to the backend
 - Sending FormData with image file to the backend
+- useSafeAreaInsets to get the screen area
 
 ---
 
